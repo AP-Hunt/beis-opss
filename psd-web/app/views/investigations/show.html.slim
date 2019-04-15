@@ -2,6 +2,8 @@
 - content_for :after_header do
   = render "breadcrumbs_navigation", breadcrumbs: @breadcrumbs
 
+= render "action_bar", investigation: @investigation
+
 .govuk-grid-row
   .govuk-grid-column-two-thirds-from-desktop
     = render "investigation_heading", investigation: @investigation
