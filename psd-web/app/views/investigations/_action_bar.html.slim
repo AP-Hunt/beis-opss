@@ -1,40 +1,43 @@
-.hmcts-identity-bar
-  .hmcts-identity-bar__container
-    .hmcts-identity-bar__details
-      span.hmcts-identity-bar__title
-        span = investigation.pretty_id
-        = investigation.title
-    .hmcts-identity-bar__actions style="float: right"
-      #add-new.hmcts-menu
-        .hmcts-menu__wrapper
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Comment
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Correspondence
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Corrective Action
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | File attachment
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Test request
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Test result
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Product
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Business
-      #actions.hmcts-menu
-        .hmcts-menu__wrapper
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Reassign this case
-          button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-            | Close case
-          - if policy(@investigation).visibility?
-            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-              = @investigation.is_private ? "Unrestrict this case" : "Restrict this case for legal privilege"
-          - if policy(@investigation).user_allowed_to_raise_alert?
-            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit"
-              | Send an alert about this case
+= form_with url: new_investigation_activity_path(investigation) do
+  .hmcts-identity-bar
+    .hmcts-identity-bar__container
+      .hmcts-identity-bar__details
+        span.hmcts-identity-bar__title
+          span = investigation.pretty_id
+          = investigation.title
+      .hmcts-identity-bar__actions style="float: right"
+        #add-new.hmcts-menu
+          .hmcts-menu__wrapper
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="comment"
+              | Comment
+            / TODO implement other correspondences
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="email"
+              | Correspondence
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="corrective_action"
+              | Corrective Action
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="file"
+              | File attachment
+            / TODO combine
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="testing_request"
+              | Test request
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="testing_result"
+              | Test result
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="product"
+              | Product
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="business"
+              | Business
+        #actions.hmcts-menu
+          .hmcts-menu__wrapper
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="assign"
+              | Reassign this case
+            button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="close"
+              | Close case
+            - if policy(@investigation).visibility?
+              button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="visibility"
+                = @investigation.is_private ? "Unrestrict this case" : "Restrict this case for legal privilege"
+            - if policy(@investigation).user_allowed_to_raise_alert?
+              button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="alert"
+                | Send an alert about this case
 javascript:
   var HMCTSFrontend = {};
   HMCTSFrontend.Menu = function (params) {

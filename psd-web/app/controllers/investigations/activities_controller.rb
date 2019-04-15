@@ -5,7 +5,7 @@ class Investigations::ActivitiesController < ApplicationController
   before_action :create_activity, only: %i[create]
 
   def new
-    return unless params[:commit] == "Continue"
+    return unless request.post?
 
     case params[:activity_type]
     when "comment"
@@ -30,6 +30,12 @@ class Investigations::ActivitiesController < ApplicationController
       redirect_to visibility_investigation_path(@investigation)
     when "alert"
       redirect_to new_investigation_alert_path(@investigation)
+    when "file"
+      redirect_to(new_investigation_document_path(@investigation) + "/upload")
+    when "assign"
+      redirect_to new_investigation_assign_path(@investigation)
+    when "close"
+      redirect_to status_investigation_path(@investigation)
     else
       @activity_type_empty = true
     end

@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :activities, controller: "investigations/activities", only: %i[create new] do
       collection do
         get :comment
+        post "new" => "investigations/activities#new"
       end
     end
 
