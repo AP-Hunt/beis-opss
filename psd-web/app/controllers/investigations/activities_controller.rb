@@ -10,6 +10,8 @@ class Investigations::ActivitiesController < ApplicationController
     case params[:activity_type]
     when "comment"
       redirect_to comment_investigation_activities_path(@investigation)
+    when "correspondence"
+      redirect_to new_correspondence_investigation_activities_path(@investigation)
     when "email"
       redirect_to new_investigation_email_path(@investigation)
     when "phone_call"
@@ -36,6 +38,21 @@ class Investigations::ActivitiesController < ApplicationController
       redirect_to new_investigation_assign_path(@investigation)
     when "close"
       redirect_to status_investigation_path(@investigation)
+    else
+      @activity_type_empty = true
+    end
+  end
+
+  def new_correspondence
+    return unless request.post?
+
+    case params[:activity_type]
+    when "email"
+      redirect_to new_investigation_email_path(@investigation)
+    when "phone_call"
+      redirect_to new_investigation_phone_call_path(@investigation)
+    when "meeting"
+      redirect_to new_investigation_meeting_path(@investigation)
     else
       @activity_type_empty = true
     end

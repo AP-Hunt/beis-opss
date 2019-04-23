@@ -46,6 +46,8 @@ Rails.application.routes.draw do
       collection do
         get :comment
         post "new" => "investigations/activities#new"
+        get :new_correspondence
+        post :new_correspondence
       end
     end
 
