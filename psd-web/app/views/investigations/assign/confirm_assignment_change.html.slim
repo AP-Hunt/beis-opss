@@ -1,6 +1,8 @@
 - content_for :page_title, "Confirm assignment change"
+- content_for :header_extension do
+  = render "investigations/action_bar", investigation: @investigation
 - content_for :after_header do
-  = link_to "Back to #{@investigation.pretty_description}", @investigation, class: "govuk-back-link"
+  = link_to "Back", @investigation, class: "govuk-back-link"
 
 = form_with(model: @investigation, local: true,
               url: investigation_assign_index_path(@investigation), method: :post) do |form|

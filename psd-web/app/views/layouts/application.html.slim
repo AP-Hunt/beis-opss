@@ -27,6 +27,7 @@ doctype html
           navigation: nav_items,
           secondary_navigation: secondary_nav_items,
           assetPath: "media/images"
+  = yield :header_extension
 
   .govuk-width-container
     = yield :after_header

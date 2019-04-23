@@ -1,6 +1,6 @@
 - content_for :page_title, "View case"
-- content_for :after_header do
-  = render "action_bar", investigation: @investigation
+- content_for :header_extension do
+  = render "investigations/action_bar", investigation: @investigation, actions: true
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds-from-desktop
