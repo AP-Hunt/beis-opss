@@ -48,6 +48,8 @@ Rails.application.routes.draw do
         post "new" => "investigations/activities#new"
         get :new_correspondence
         post :new_correspondence
+        get :new_test
+        post :new_test
       end
     end
 

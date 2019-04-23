@@ -17,11 +17,8 @@
                 | Corrective Action
               button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="file"
                 | File attachment
-              / TODO combine
-              button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="testing_request"
-                | Test request
-              button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="testing_result"
-                | Test result
+              button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="testing"
+                | Test request or result
               button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="product"
                 | Product
               button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="business"
@@ -31,7 +28,7 @@
               button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="assign"
                 | Reassign this case
               button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="close"
-                | Close case
+                = @investigation.is_closed? ? "Open case" : "Close case"
               - if policy(@investigation).visibility?
                 button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="visibility"
                   = @investigation.is_private ? "Unrestrict this case" : "Restrict this case for legal privilege"

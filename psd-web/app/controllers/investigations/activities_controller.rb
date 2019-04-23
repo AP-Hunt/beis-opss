@@ -20,6 +20,8 @@ class Investigations::ActivitiesController < ApplicationController
       redirect_to new_investigation_meeting_path(@investigation)
     when "product"
       redirect_to new_investigation_product_path(@investigation)
+    when "testing"
+      redirect_to new_test_investigation_activities_path(@investigation)
     when "testing_request"
       redirect_to new_request_investigation_tests_path(@investigation)
     when "testing_result"
@@ -53,6 +55,19 @@ class Investigations::ActivitiesController < ApplicationController
       redirect_to new_investigation_phone_call_path(@investigation)
     when "meeting"
       redirect_to new_investigation_meeting_path(@investigation)
+    else
+      @activity_type_empty = true
+    end
+  end
+
+  def new_test
+    return unless request.post?
+
+    case params[:activity_type]
+    when "testing_request"
+      redirect_to new_request_investigation_tests_path(@investigation)
+    when "testing_result"
+      redirect_to new_result_investigation_tests_path(@investigation)
     else
       @activity_type_empty = true
     end
