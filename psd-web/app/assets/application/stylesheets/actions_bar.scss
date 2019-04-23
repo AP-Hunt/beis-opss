@@ -31,7 +31,7 @@
 }
 
 /* ==========================================================================
-   #WIDHT CONTAINER
+   #WIDTH CONTAINER
    ========================================================================== */
 @mixin hmcts-width-container($width: $govuk-page-width) {
   // Limit the width of the container to the page width
@@ -152,8 +152,8 @@
   margin-right: 0;
   &:after {
     background-repeat: no-repeat;
-    color: white;
-    content: '▼';
+    background-image: url("../images/icon-arrow-white-down.svg");
+    content: '';
     display: inline-block;
     height: 5px;
     margin-left: govuk-spacing(2);
@@ -164,7 +164,7 @@
 
 .hmcts-menu__toggle-button[aria-expanded="true"] {
   &:after {
-    content: '▲';
+    background-image: url("../images/icon-arrow-white-up.svg");
   }
 }
 
@@ -172,14 +172,13 @@
   margin-bottom: govuk-spacing(1);
   margin-right: 0;
   &:after {
-    color: black;
-    content: '▼';
+    background-image: url("../images/icon-arrow-black-down.svg");
   }
 }
 
 .hmcts-menu__toggle-button--secondary[aria-expanded="true"] {
   &:after {
-    content: '▲';
+    background-image: url("../images/icon-arrow-black-up.svg");
   }
 }
 
