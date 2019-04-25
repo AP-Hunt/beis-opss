@@ -35,6 +35,8 @@ class InvestigationsController < ApplicationController
   # GET /cases/1
   # GET /cases/1.json
   def show
+    p "current ----------------------------------------------------------"
+    @current = p request.fullpath.split("/").last
     respond_to do |format|
       format.html
     end
@@ -97,10 +99,11 @@ private
   end
 
   def set_investigation_with_associations
+    id = params[:pretty_id] || params[:investigation_pretty_id]
     @investigation = Investigation.eager_load(:source,
                                               products: { documents_attachments: :blob },
                                               investigation_businesses: { business: :locations },
-                                              documents_attachments: :blob).find_by!(pretty_id: params[:pretty_id])
+                                              documents_attachments: :blob).find_by!(pretty_id: id)
     authorize @investigation, :show?
     preload_activities
   end

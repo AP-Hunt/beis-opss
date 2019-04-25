@@ -2,21 +2,23 @@
 - content_for :header_extension do
   = render "investigations/action_bar", investigation: @investigation, actions: true
 
-.govuk-grid-row
-  .govuk-grid-column-two-thirds-from-desktop
-    h1.govuk-heading-l
-      = @investigation.title
-
-hr.govuk-section-break.govuk-section-break--m
-
-= render "components/govuk_tabs", title: "Summary",
-        items: [{ id: "overview", label: "Overview",
-                        panel: { html: render("investigations/tabs/overview") } },
-                { id: "products", label: "Products (#{@investigation.products.count})",
-                        panel: { html: render("investigations/tabs/products") } },
-                { id: "businesses", label: "Businesses (#{@investigation.businesses.count})",
-                        panel: { html: render("investigations/tabs/businesses") } },
-                { id: "attachments", label: "Attachments (#{@investigation.documents.count})",
-                        panel: { html: render("investigations/tabs/attachments") } },
-                { id: "activity", label: "Activity",
-                        panel: { html: render("investigations/tabs/activity") } }]
+= render "components/hmcts_subnav", title: "Summary",
+        items: [{ href: investigation_url(@investigation), text: "Overview", active: @current == "Overview"},
+                { href: investigation_products_url(@investigation), text: "Products (#{@investigation.products.count})", active: @current == "Products"},
+                { href: investigation_businesses_url(@investigation), text: "Businesses (#{@investigation.businesses.count})", active: @current == "Businesses"},
+                { href: investigation_documents_url(@investigation), text: "Attachments (#{@investigation.documents.count})", active: @current == "Attachments"},
+                { href: "/cases/#{@investigation.pretty_id}/activities", text: "Activity", active: @current == "Activity"}]
+ruby:
+  partial = case @current
+  when "products"
+    "investigations/tabs/products"
+  when "businesses"
+    "investigations/tabs/businesses"
+  when "documents"
+    "investigations/tabs/attachments"
+  when "activities"
+    "investigations/tabs/activity"
+  else
+    "investigations/tabs/overview"
+  end
+= render partial
