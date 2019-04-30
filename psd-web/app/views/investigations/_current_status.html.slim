@@ -1,31 +1,31 @@
-.govuk-grid-column-one-half
+.govuk-grid-column-two-thirds
   h2.govuk-heading-m[class="govuk-!-margin-bottom-6"]
-    | Current status
+    | About the case
   table.govuk-table.summary-table
     tbody.govuk-table__body
       tr.govuk-table__row
-        th.govuk-table__header[scope="row"]
-          span.govuk-caption-m[class="govuk-!-font-size-16"]
-            | Status
+        th.govuk-table__header
+          | Status
+        td.govuk-table__cell[style="text-align:left"]
           = investigation.status
-        td.govuk-table__cell [class="govuk-!-font-size-16"]
+        td.govuk-table__cell
           = link_to "Change", status_investigation_path(investigation)
 
       tr.govuk-table__row
         th.govuk-table__header[scope="row"]
-          span.govuk-caption-m[class="govuk-!-font-size-16"]
             | Assigned to
+        td.govuk-table__cell[style="text-align:left"]
           = investigation.assignee ? investigation.assignee.name.to_s : "Unassigned"
           - if investigation.assignee&.organisation.present?
-            div[class="govuk-!-font-size-16"]
+            div
               = investigation.assignee.organisation.name
-        td.govuk-table__cell [class="govuk-!-font-size-16"]
+        td.govuk-table__cell
           - if policy(investigation).assign?
             = link_to "Change", new_investigation_assign_path(investigation)
       tr.govuk-table__row
         th.govuk-table__header[scope="row"]
-          span.govuk-caption-m[class="govuk-!-font-size-16"]
             | Last updated
-          span = "#{time_ago_in_words(investigation.updated_at)} ago"
-        td.govuk-table__cell [class="govuk-!-font-size-16"]
+        td.govuk-table__cell[style="text-align:left"]
+            | #{time_ago_in_words(investigation.updated_at)} ago
+        td.govuk-table__cell
           = link_to "Add activity", new_investigation_activity_path(investigation)
