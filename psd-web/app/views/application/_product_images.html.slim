@@ -1,0 +1,12 @@
+aside.app-related-items role="complementary"
+  br
+  h2.govuk-heading-s = product.name
+  .aspect-ratio-3-2-container
+    .aspect-ratio-contents
+      - if product.images.any?
+        = render "documents/document_preview", document: product.images.first, dimensions: "300x200",
+                class_name: "product-image"
+      - else
+        p
+          | No images
+      p = link_to "View product", product, class: "govuk-link"

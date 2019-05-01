@@ -7,7 +7,8 @@
                 { href: investigation_products_url(@investigation), text: "Products (#{@investigation.products.count})", active: @current == "Products"},
                 { href: investigation_businesses_url(@investigation), text: "Businesses (#{@investigation.businesses.count})", active: @current == "Businesses"},
                 { href: investigation_documents_url(@investigation), text: "Attachments (#{@investigation.documents.count})", active: @current == "Attachments"},
-                { href: "/cases/#{@investigation.pretty_id}/activities", text: "Activity", active: @current == "Activity"}]
+                { href: "/cases/#{@investigation.pretty_id}/activities", text: "Timeline", active: @current == "Activity"},
+                { href: "/cases/#{@investigation.pretty_id}/activities", text: "Settings", active: @current == "Settings"}]
 ruby:
   partial = case @current
   when "products"

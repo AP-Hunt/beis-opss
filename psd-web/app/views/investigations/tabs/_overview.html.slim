@@ -1,55 +1,88 @@
-h2.govuk-heading-l Overview
-.govuk-grid-row[class="govuk-!-padding-bottom-6"]
+.govuk-grid-row
   .govuk-grid-column-two-thirds
-    p.govuk-body-l = @investigation.title
+    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+      h2.govuk-heading-l Overview
+      .govuk-grid-column
+        p.govuk-body-l = @investigation.title
+    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+      h2.govuk-heading-m Summary
+      .govuk-grid-column
+        p = @investigation.description
+        p = link_to "Change summary", edit_summary_investigation_path(@investigation), class: "govuk-link--no-visited-state"
+    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+      hr.govuk-section-break.govuk-section-break--s
+        = render "investigations/current_status", investigation: @investigation
+      hr.govuk-section-break.govuk-section-break--s
+    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+      h2.govuk-heading-m
+        | Products
+      hr.govuk-section-break.govuk-section-break--s
+          dl.govuk-summary-list
+            .govuk-summary-list__row
+              dt.govuk-summary-list__key
+                | Product category
+              dd.govuk-summary-list__value
+                = @investigation.product_category
+              dd.govuk-summary-list__actions
+                = link_to "Change"
+                span.govuk-visually-hidden status
+            .govuk-summary-list__row
+              dt.govuk-summary-list__key
+                | Hazards
+              dd.govuk-summary-list__value
+                  = @investigation.hazard_type ? @investigation.hazard_type : "No hazards"
+                  - if @investigation.hazard_description
+                    br
+                    = @investigation.hazard_description
+              dd.govuk-summary-list__actions
+                = link_to "Change"
+            .govuk-summary-list__row
+              dt.govuk-summary-list__key
+                | Compliance
+              dd.govuk-summary-list__value
+                = @investigation.non_compliant_reason ? @investigation.non_compliant_reason : "No known compliance issues"
+              dd.govuk-summary-list__actions
+                = link_to "Change"
+          - if @investigation.complainant
+            hr.govuk-section-break.govuk-section-break--m
+            h2.govuk-heading-m
+              | Reporter
+            - if @investigation.complainant.can_be_displayed?
+              dl.govuk-summary-list
+                .govuk-summary-list__row.govuk-summary-list--no-border
+                  dt.govuk-summary-list__key
+                    | Report source
+                  dd.govuk-summary-list__value
+                    = @investigation.complainant.name
+                  dd.govuk-summary-list__actions
+                    = link_to "Change"
+                    span.govuk-visually-hidden status
+                .govuk-summary-list__row
+                  dt.govuk-summary-list__key
+                    | TS reference number
+                  dd.govuk-summary-list__value
+                    = @investigation.hazard_type
+                  dd.govuk-summary-list__actions
+                    = link_to "Change"
+                .govuk-summary-list__row
+                  dt.govuk-summary-list__key
+                    | Contact details
+                  dd.govuk-summary-list__value
+                      = @investigation.complainant.name
+                      br
+                      = @investigation.complainant.email_address
+                      br
+                      = @investigation.complainant.phone_number
+                      br
+                      = @investigation.complainant.other_details
+                  dd.govuk-summary-list__actions
+                    = link_to "Change"
+            - else
+              p GDPR protected details hidden
 
-h2.govuk-heading-m Summary
-.govuk-grid-row[class="govuk-!-padding-bottom-6"]
-  .govuk-grid-column-two-thirds
-    p = @investigation.description
-    p = link_to "Change summary", edit_summary_investigation_path(@investigation), class: "govuk-link--no-visited-state"
-
-.govuk-grid-row[class="govuk-!-padding-bottom-6"]
-  hr.govuk-section-break.govuk-section-break--s
-    = render "investigations/current_status", investigation: @investigation
-  hr.govuk-section-break.govuk-section-break--s
-h2.govuk-heading-m[class="govuk-!-margin-bottom-6"]
-  | Report details
-h3.govuk-heading-s
-  = @investigation.case_type.titleize
-table.govuk-table
-  tbody.govuk-table__body
-    tr.govuk-table__row
-      th.govuk-table__header [scope="row" class="govuk-!-width-one-quarter"]  Date recorded
-      td.govuk-table__cell = @investigation.created_at.strftime("%d/%m/%Y")
-      - if @investigation.is_a?(Investigation::Allegation)
-        tr.govuk-table__row
-          th.govuk-table__header Product category
-          td.govuk-table__cell = @investigation.product_category
-        tr.govuk-table__row
-          th.govuk-table__header  Hazard type
-          td.govuk-table__cell = @investigation.hazard_type
-- if @investigation.complainant
-  hr.govuk-section-break.govuk-section-break--m
-  h3.govuk-heading-s
-    | Complainant
-  - if @investigation.complainant.can_be_displayed?
-    table.govuk-table
-      tbody.govuk-table__body
-        tr.govuk-table__row
-          th.govuk-table__header [scope="row" class="govuk-!-width-one-quarter"] Name
-          td.govuk-table__cell = @investigation.complainant.name
-        tr.govuk-table__row
-          th.govuk-table__header Type
-          td.govuk-table__cell = @investigation.complainant.complainant_type
-        tr.govuk-table__row
-          th.govuk-table__header Phone
-          td.govuk-table__cell = @investigation.complainant.phone_number
-        tr.govuk-table__row
-          th.govuk-table__header Email
-          td.govuk-table__cell = @investigation.complainant.email_address
-        tr.govuk-table__row
-          th.govuk-table__header Other details
-          td.govuk-table__cell = @investigation.complainant.other_details
-  - else
-    p GDPR protected details hidden
+  .govuk-grid-column-one-third[style="border-top:5px solid #005ea5;"]
+    #subsection-title.h2.govuk-heading-m
+      br
+      | Products
+      - @investigation.products.each do |product|
+        = render "product_images", product: product

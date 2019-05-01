@@ -1,31 +1,36 @@
-.govuk-grid-column-two-thirds
-  h2.govuk-heading-m[class="govuk-!-margin-bottom-6"]
+h2.govuk-heading-m
     | About the case
-  table.govuk-table.summary-table
-    tbody.govuk-table__body
-      tr.govuk-table__row
-        th.govuk-table__header
-          | Status
-        td.govuk-table__cell[style="text-align:left"]
-          = investigation.status
-        td.govuk-table__cell
-          = link_to "Change", status_investigation_path(investigation)
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key
+      | Status
+    dd.govuk-summary-list__value
+      = investigation.status
+    dd.govuk-summary-list__actions
+      = link_to "Change", status_investigation_path(investigation)
+      span.govuk-visually-hidden status
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key
+      | Assigned to
+    dd.govuk-summary-list__value
+      = investigation.assignee ? investigation.assignee.name.to_s : "Unassigned"
+      - if investigation.assignee&.organisation.present?
+        div
+          = investigation.assignee.organisation.name
+    dd.govuk-summary-list__actions
+      - if policy(investigation).assign?
+        = link_to "Change", new_investigation_assign_path(investigation)
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key
+      | Created by
+    dd.govuk-summary-list__value
+      = @activities.first.source.show
+    dd.govuk-summary-list__actions
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key
+      | Last updated
+    dd.govuk-summary-list__value
+      | #{time_ago_in_words(investigation.updated_at)} ago
+    dd.govuk-summary-list__actions
+      = link_to "Add activity", new_investigation_activity_path(investigation)
 
-      tr.govuk-table__row
-        th.govuk-table__header[scope="row"]
-            | Assigned to
-        td.govuk-table__cell[style="text-align:left"]
-          = investigation.assignee ? investigation.assignee.name.to_s : "Unassigned"
-          - if investigation.assignee&.organisation.present?
-            div
-              = investigation.assignee.organisation.name
-        td.govuk-table__cell
-          - if policy(investigation).assign?
-            = link_to "Change", new_investigation_assign_path(investigation)
-      tr.govuk-table__row
-        th.govuk-table__header[scope="row"]
-            | Last updated
-        td.govuk-table__cell[style="text-align:left"]
-            | #{time_ago_in_words(investigation.updated_at)} ago
-        td.govuk-table__cell
-          = link_to "Add activity", new_investigation_activity_path(investigation)
