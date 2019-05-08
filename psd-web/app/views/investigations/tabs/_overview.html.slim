@@ -63,7 +63,6 @@
                   dd.govuk-summary-list__value
                     = @investigation.hazard_type
                   dd.govuk-summary-list__actions
-                    = link_to "Change"
                 .govuk-summary-list__row
                   dt.govuk-summary-list__key
                     | Contact details
@@ -79,7 +78,7 @@
                     = link_to "Change"
             - else
               p GDPR protected details hidden
-
+if @investigation.products
   .govuk-grid-column-one-third[style="border-top:5px solid #005ea5;"]
     #subsection-title.h2.govuk-heading-m
       br
