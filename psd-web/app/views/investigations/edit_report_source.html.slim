@@ -1,6 +1,7 @@
 - content_for :page_title, "Edit report source"
 / - content_for :header_extension do
-/   = render "investigations/action_bar", investigation: @investigation
+/   = render "investigations/- content_for :header_extension do
+  = render "investigations/action_bar", investigation: @investigation", investigation: @investigation
 - content_for :after_header do
   = link_to "Back", @investigation, class: "govuk-back-link"
 = form_with(model: @investigation, url: edit_report_source_investigation_path(@investigation)) do |form|
