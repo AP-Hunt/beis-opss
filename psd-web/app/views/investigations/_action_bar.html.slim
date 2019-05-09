@@ -35,6 +35,9 @@
               - if policy(@investigation).user_allowed_to_raise_alert?
                 button.govuk-button.hmcts-menu__item.hmcts-button--secondary type="submit" name="activity_type" value="alert"
                   | Send an alert about this case
+//seperates message from action bar
+- if %i[success information warning].any?
+  br
 javascript:
   var HMCTSFrontend = {};
   HMCTSFrontend.Menu = function (params) {

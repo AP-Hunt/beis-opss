@@ -6,7 +6,6 @@
 = form_with(model: @investigation, url: edit_summary_investigation_path(@investigation)) do |form|
   .govuk-grid-row
     .govuk-grid-column-two-thirds-from-desktop
-      = render "form_components/govuk_error_summary", form: form
       = render "minimal_investigation_heading", investigation: @investigation,
               title: "Edit #{@investigation.case_type} summary"
       = render "form_components/govuk_textarea", key: :description, form: form,

@@ -1,87 +1,90 @@
-.govuk-grid-row
-  .govuk-grid-column-two-thirds
-    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
-      h2.govuk-heading-l Overview
-      .govuk-grid-column
-        p.govuk-body-l = @investigation.title
-    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
-      h2.govuk-heading-m Summary
-      .govuk-grid-column
-        p = @investigation.description
-        p = link_to "Change summary", edit_summary_investigation_path(@investigation), class: "govuk-link--no-visited-state"
-    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
-      hr.govuk-section-break.govuk-section-break--s
-        = render "investigations/current_status", investigation: @investigation
-      hr.govuk-section-break.govuk-section-break--s
-    .govuk-grid-row[class="govuk-!-padding-bottom-6"]
-      h2.govuk-heading-m
-        | Products
-      hr.govuk-section-break.govuk-section-break--s
-          dl.govuk-summary-list
-            .govuk-summary-list__row
-              dt.govuk-summary-list__key
-                | Product category
-              dd.govuk-summary-list__value
-                = @investigation.product_category
-              dd.govuk-summary-list__actions
-                = link_to "Change"
-                span.govuk-visually-hidden status
-            .govuk-summary-list__row
-              dt.govuk-summary-list__key
-                | Hazards
-              dd.govuk-summary-list__value
-                  = @investigation.hazard_type ? @investigation.hazard_type : "No hazards"
-                  - if @investigation.hazard_description
-                    br
-                    = @investigation.hazard_description
-              dd.govuk-summary-list__actions
-                = link_to "Change"
-            .govuk-summary-list__row
-              dt.govuk-summary-list__key
-                | Compliance
-              dd.govuk-summary-list__value
-                = @investigation.non_compliant_reason ? @investigation.non_compliant_reason : "No known compliance issues"
-              dd.govuk-summary-list__actions
-                = link_to "Change"
-          - if @investigation.complainant
-            hr.govuk-section-break.govuk-section-break--m
-            h2.govuk-heading-m
-              | Reporter
-            - if @investigation.complainant.can_be_displayed?
-              dl.govuk-summary-list
-                .govuk-summary-list__row.govuk-summary-list--no-border
-                  dt.govuk-summary-list__key
-                    | Report source
-                  dd.govuk-summary-list__value
+.govuk-grid-column-two-thirds
+  .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+    h2.govuk-heading-l Overview
+    .govuk-grid-column
+      p.govuk-body-l = @investigation.title
+  .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+    h2.govuk-heading-m Summary
+    .govuk-grid-column
+      p = @investigation.description
+      p = link_to "Change summary", edit_summary_investigation_path(@investigation), class: "govuk-link--no-visited-state"
+  .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+    hr.govuk-section-break.govuk-section-break--s
+      = render "investigations/current_status", investigation: @investigation
+    hr.govuk-section-break.govuk-section-break--s
+  .govuk-grid-row[class="govuk-!-padding-bottom-6"]
+    h2.govuk-heading-m
+      | Products
+    hr.govuk-section-break.govuk-section-break--s
+        dl.govuk-summary-list
+          .govuk-summary-list__row
+            dt.govuk-summary-list__key
+              | Product category
+            dd.govuk-summary-list__value
+              = @investigation.product_category
+            dd.govuk-summary-list__actions
+              = link_to "Change"
+              span.govuk-visually-hidden status
+          .govuk-summary-list__row
+            dt.govuk-summary-list__key
+              | Hazards
+            dd.govuk-summary-list__value
+                = @investigation.hazard_type ? @investigation.hazard_type : "No hazards"
+                - if @investigation.hazard_description
+                  br
+                  = @investigation.hazard_description
+            dd.govuk-summary-list__actions
+              = link_to "Change"
+          .govuk-summary-list__row
+            dt.govuk-summary-list__key
+              | Compliance
+            dd.govuk-summary-list__value
+              = @investigation.non_compliant_reason ? @investigation.non_compliant_reason : "No known compliance issues"
+            dd.govuk-summary-list__actions
+              = link_to "Change"
+        - if @investigation.complainant
+          hr.govuk-section-break.govuk-section-break--m
+          h2.govuk-heading-m
+            | Reporter
+          - if @investigation.complainant.can_be_displayed?
+            dl.govuk-summary-list
+              .govuk-summary-list__row.govuk-summary-list--no-border
+                dt.govuk-summary-list__key
+                  | Report source
+                dd.govuk-summary-list__value
+                  = @investigation.complainant.name
+                dd.govuk-summary-list__actions
+                  = link_to "Change"
+                  span.govuk-visually-hidden status
+              .govuk-summary-list__row
+                dt.govuk-summary-list__key
+                  | TS reference number
+                dd.govuk-summary-list__value
+                  = @investigation.hazard_type
+                dd.govuk-summary-list__actions
+              .govuk-summary-list__row
+                dt.govuk-summary-list__key
+                  | Contact details
+                dd.govuk-summary-list__value
                     = @investigation.complainant.name
-                  dd.govuk-summary-list__actions
-                    = link_to "Change"
-                    span.govuk-visually-hidden status
-                .govuk-summary-list__row
-                  dt.govuk-summary-list__key
-                    | TS reference number
-                  dd.govuk-summary-list__value
-                    = @investigation.hazard_type
-                  dd.govuk-summary-list__actions
-                .govuk-summary-list__row
-                  dt.govuk-summary-list__key
-                    | Contact details
-                  dd.govuk-summary-list__value
-                      = @investigation.complainant.name
-                      br
-                      = @investigation.complainant.email_address
-                      br
-                      = @investigation.complainant.phone_number
-                      br
-                      = @investigation.complainant.other_details
-                  dd.govuk-summary-list__actions
-                    = link_to "Change"
-            - else
-              p GDPR protected details hidden
-if @investigation.products
-  .govuk-grid-column-one-third[style="border-top:5px solid #005ea5;"]
-    #subsection-title.h2.govuk-heading-m
+                    br
+                    = @investigation.complainant.email_address
+                    br
+                    = @investigation.complainant.phone_number
+                    br
+                    = @investigation.complainant.other_details
+                dd.govuk-summary-list__actions
+                  = link_to "Change"
+          - else
+            p GDPR protected details hidden
+.govuk-grid-row
+  .govuk-grid-column-one-third
+    #subsection-title.h2.govuk-heading-m[style="border-top:5px solid #005ea5;"]
       br
       | Products
-      - @investigation.products.each do |product|
-        = render "product_images", product: product
+      - if @investigation.products.any?
+        - @investigation.products.each do |product|
+          = render "product_images", product: product
+      - else
+        p
+        p No products
