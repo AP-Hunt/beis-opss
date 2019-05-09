@@ -7,15 +7,14 @@
       h1.govuk-heading-xl
         | Declaration
       p
-        | I declare that:
+        | By continuing you agree:
       ul.govuk-list.govuk-list--bullet
-        li I have permission to access information on behalf of the national poison centres
         li
-          | I have read and understood the
+          | to the
           =<> link_to "terms and conditions", terms_and_conditions_path
           | and
           =<> link_to "privacy policy", privacy_notice_path
-          | and accept them
-        li I will not share any information from the UK cosmetic product notification database outside my organisation
+        li to only use the information in the cosmetic product notification service for healthcare purposes
+        li not to share specific information from the cosmetic product notification service outside of your organisation
 
       = render "declaration/accept_declaration", form: form, errors: @errors
