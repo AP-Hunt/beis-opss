@@ -1,0 +1,23 @@
+- content_for :page_title, "Declaration"
+= form_with url: accept_declaration_path, local: true do |form|
+  - if @errors.present?
+    = render "components/govuk_error_summary", titleText: "There is a problem", errorList: @errors
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds
+      h1.govuk-heading-xl
+        | Declaration
+      p
+        | By continuing you agree:
+      ul.govuk-list.govuk-list--bullet
+        li
+          | to the
+          =<> link_to "terms and conditions", terms_and_conditions_path
+          | and
+          =<> link_to "privacy policy", privacy_notice_path
+        li to only use the information in the cosmetic product notification service for:
+          ul.govuk-list.govuk-list--bullet
+            li investigating or alerting people to product safety issues
+            li monitoring compliance with legislation
+            li enforcement activity
+
+      = render "declaration/accept_declaration", form: form, errors: @errors
