@@ -41,6 +41,8 @@ Rails.application.routes.draw do
       patch :visibility
       get :edit_summary
       patch :edit_summary
+      get :edit_report_source
+      patch :edit_report_source
       get :created
     end
     resources :activities, controller: "investigations/activities", only: %i[create new] do

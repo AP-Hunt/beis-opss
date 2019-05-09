@@ -3,7 +3,7 @@ class InvestigationsController < ApplicationController
   include LoadHelper
 
   before_action :set_search_params, only: %i[index]
-  before_action :set_investigation, only: %i[status visibility edit_summary created]
+  before_action :set_investigation, only: %i[status visibility edit_summary edit_report_source created]
   before_action :set_investigation_with_associations, only: %i[show]
   before_action :build_breadcrumbs, only: %i[show]
 
@@ -75,6 +75,13 @@ class InvestigationsController < ApplicationController
   def edit_summary
     update
   end
+
+  # GET /cases/1/edit_report_source
+  # PATCH /cases/1/edit_report_source
+  def edit_report_source
+    update
+  end
+
 
   def created; end
 

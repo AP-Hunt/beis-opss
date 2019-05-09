@@ -54,8 +54,7 @@
                 dd.govuk-summary-list__value
                   = @investigation.complainant.name
                 dd.govuk-summary-list__actions
-                  = link_to "Change"
-                  span.govuk-visually-hidden status
+                  = link_to "Change", edit_report_source_investigation_path(@investigation)
               .govuk-summary-list__row
                 dt.govuk-summary-list__key
                   | TS reference number

@@ -27,6 +27,11 @@ class InvestigationPolicy < ApplicationPolicy
     visible_to(user: @user)
   end
 
+  def edit_report_source?
+    visible_to(user: @user)
+  end
+
+
   def created?
     visible_to(user: @user)
   end

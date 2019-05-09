@@ -1,0 +1,16 @@
+- content_for :page_title, "Edit report source"
+/ - content_for :header_extension do
+/   = render "investigations/action_bar", investigation: @investigation
+- content_for :after_header do
+  = link_to "Back", @investigation, class: "govuk-back-link"
+= form_with(model: @investigation, url: edit_report_source_investigation_path(@investigation)) do |form|
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds-from-desktop
+      = render "minimal_investigation_heading", investigation: @investigation,
+              title: "Edit #{@investigation.case_type} report source"
+      = render "form_components/govuk_textarea", key: :complainant, value: @investigation.complainant.name, form: form,
+              attributes: { maxlength: 10000 },
+              label: { text: "Edit report source", classes: "govuk-visually-hidden" }
+      .govuk-form-group
+        = form.submit "Update report source", class: "govuk-button"
+        p = link_to "Cancel", @investigation, class: "govuk-link--no-visited-state"
