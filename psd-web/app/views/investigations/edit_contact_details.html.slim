@@ -4,14 +4,23 @@
   = render "investigations/action_bar", investigation: @investigation", investigation: @investigation
 - content_for :after_header do
   = link_to "Back", @investigation, class: "govuk-back-link"
-= form_with(model: @investigation.complainant, url: edit_report_source_investigation_path(@investigation)) do |form|
+= form_with(model: @investigation, url: edit_contact_details_investigation_path(@investigation)) do |form|
   .govuk-grid-row
     .govuk-grid-column-two-thirds-from-desktop
       = render "minimal_investigation_heading", investigation: @investigation,
               title: "Edit #{@investigation.case_type} report source"
       = render "form_components/govuk_input", key: :name, form: form,
               attributes: { maxlength: 10000 },
-              label: { text: "Edit report source", classes: "govuk-visually-hidden" }
+              label: { text: "Name"}
+      = render "form_components/govuk_input", key: :email_address, form: form,
+              attributes: { maxlength: 10000 },
+              label: { text: "Email"}
+      = render "form_components/govuk_input", key: :phone_number, form: form,
+              attributes: { maxlength: 10000 },
+              label: { text: "Phone number"}
+      = render "form_components/govuk_textarea", key: :other_details, form: form,
+              attributes: { maxlength: 10000 },
+              label: { text: "Other details"}
       .govuk-form-group
-        = form.submit "Update report source", class: "govuk-button"
+        = form.submit "Update contact details", class: "govuk-button"
         p = link_to "Cancel", @investigation, class: "govuk-link--no-visited-state"

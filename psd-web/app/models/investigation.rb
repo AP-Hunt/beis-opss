@@ -51,6 +51,8 @@ class Investigation < ApplicationRecord
 
   after_create :create_audit_activity_for_case, :send_confirmation_email
 
+  accepts_nested_attributes_for :complainant, reject_if: :all_blank
+
   def assignee
     begin
       return User.find(assignable_id) if assignable_type == "User"
@@ -173,6 +175,38 @@ private
       AuditActivity::Investigation::UpdateAssignee.from(self)
     end
   end
+
+  # def create_audit_activity_for_product_category
+  #   # TODO: User.current check is here to avoid triggering activity and emails from migrations
+  #   # Can be safely removed once the migration PopulateAssigneeAndDescription has run
+  #   if ((saved_changes.key? :product_category) || (saved_changes.key? :assignable_type)) && User.current
+  #     AuditActivity::Investigation::UpdateAssignee.from(self)
+  #   end
+  # end
+
+  # def create_audit_activity_for_hazards
+  #   # TODO: User.current check is here to avoid triggering activity and emails from migrations
+  #   # Can be safely removed once the migration PopulateAssigneeAndDescription has run
+  #   if ((saved_changes.key? :assignable_id) || (saved_changes.key? :assignable_type)) && User.current
+  #     AuditActivity::Investigation::UpdateAssignee.from(self)
+  #   end
+  # end
+
+  # def create_audit_activity_for_compliance
+  #   # TODO: User.current check is here to avoid triggering activity and emails from migrations
+  #   # Can be safely removed once the migration PopulateAssigneeAndDescription has run
+  #   if ((saved_changes.key? :assignable_id) || (saved_changes.key? :assignable_type)) && User.current
+  #     AuditActivity::Investigation::UpdateAssignee.from(self)
+  #   end
+  # end
+
+  # def create_audit_activity_for_reporter
+  #   # TODO: User.current check is here to avoid triggering activity and emails from migrations
+  #   # Can be safely removed once the migration PopulateAssigneeAndDescription has run
+  #   if ((saved_changes.key? :assignable_id) || (saved_changes.key? :assignable_type)) && User.current
+  #     AuditActivity::Investigation::UpdateAssignee.from(self)
+  #   end
+  # end
 
   def create_audit_activity_for_summary
     # TODO: User.current check is here to avoid triggering activity and emails from migrations

@@ -14,7 +14,7 @@
     hr.govuk-section-break.govuk-section-break--s
   .govuk-grid-row[class="govuk-!-padding-bottom-6"]
     h2.govuk-heading-m
-      | Products
+      | Product
     hr.govuk-section-break.govuk-section-break--s
         dl.govuk-summary-list
           .govuk-summary-list__row
@@ -23,7 +23,7 @@
             dd.govuk-summary-list__value
               = @investigation.product_category
             dd.govuk-summary-list__actions
-              = link_to "Change"
+              = link_to "Change", edit_product_category_investigation_path(@investigation)
               span.govuk-visually-hidden status
           .govuk-summary-list__row
             dt.govuk-summary-list__key
@@ -34,14 +34,14 @@
                   br
                   = @investigation.hazard_description
             dd.govuk-summary-list__actions
-              = link_to "Change"
+              = link_to "Change", edit_hazard_details_investigation_path(@investigation)
           .govuk-summary-list__row
             dt.govuk-summary-list__key
               | Compliance
             dd.govuk-summary-list__value
               = @investigation.non_compliant_reason ? @investigation.non_compliant_reason : "No known compliance issues"
             dd.govuk-summary-list__actions
-              = link_to "Change"
+              = link_to "Change", edit_non_compliant_reason_investigation_path(@investigation)
         - if @investigation.complainant
           hr.govuk-section-break.govuk-section-break--m
           h2.govuk-heading-m
@@ -54,12 +54,12 @@
                 dd.govuk-summary-list__value
                   = @investigation.complainant.name
                 dd.govuk-summary-list__actions
-                  = link_to "Change", edit_report_source_investigation_path(@investigation)
+                  = link_to "Change", edit_contact_details_investigation_path(@investigation)
               .govuk-summary-list__row
                 dt.govuk-summary-list__key
                   | TS reference number
                 dd.govuk-summary-list__value
-                  = @investigation.hazard_type
+                  = @investigation.complainant_reference
                 dd.govuk-summary-list__actions
               .govuk-summary-list__row
                 dt.govuk-summary-list__key
@@ -73,7 +73,7 @@
                     br
                     = @investigation.complainant.other_details
                 dd.govuk-summary-list__actions
-                  = link_to "Change"
+                  = link_to "Change", edit_contact_details_investigation_path(@investigation)
           - else
             p GDPR protected details hidden
 .govuk-grid-row
@@ -86,4 +86,4 @@
           = render "product_images", product: product
       - else
         p
-        p No products
+        p No products.

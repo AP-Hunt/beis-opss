@@ -31,6 +31,23 @@ class InvestigationPolicy < ApplicationPolicy
     visible_to(user: @user)
   end
 
+  def edit_contact_details?
+    visible_to(user: @user)
+  end
+
+  def edit_non_compliant_reason?
+    visible_to(user: @user)
+  end
+
+  def edit_product_category?
+    visible_to(user: @user)
+  end
+
+  def edit_hazard_details?
+    visible_to(user: @user)
+  end
+
+
 
   def created?
     visible_to(user: @user)

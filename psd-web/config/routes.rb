@@ -43,6 +43,14 @@ Rails.application.routes.draw do
       patch :edit_summary
       get :edit_report_source
       patch :edit_report_source
+      get :edit_contact_details
+      patch :edit_contact_details
+      get :edit_non_compliant_reason
+      patch :edit_non_compliant_reason
+      get :edit_product_category
+      patch :edit_product_category
+      get :edit_hazard_details
+      patch :edit_hazard_details
       get :created
     end
     resources :activities, controller: "investigations/activities", only: %i[create new] do

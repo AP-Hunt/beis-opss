@@ -1,0 +1,19 @@
+- content_for :page_title, "Edit report source"
+/ - content_for :header_extension do
+/   = render "investigations/- content_for :header_extension do
+  = render "investigations/action_bar", investigation: @investigation", investigation: @investigation
+- content_for :after_header do
+  = link_to "Back", @investigation, class: "govuk-back-link"
+= form_with(model: @investigation, url: edit_report_source_investigation_path(@investigation)) do |form|
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds-from-desktop
+      = render "minimal_investigation_heading", investigation: @investigation,
+              title: "Edit #{@investigation.case_type} hazard details"
+      #hazard-type-auto-complete-container
+        = render "form_components/govuk_select", choices: hazard_types, key: :hazard_type, form: form,
+                    show_all_values: true, hint: { text: "The primary danger the product presents" },
+                    aria_describedby: "hazard-type-category-hint", label: { text: "Hazard type" },
+                    is_autocomplete: true
+      .govuk-form-group
+        = form.submit "Update hazard details", class: "govuk-button"
+        p = link_to "Cancel", @investigation, class: "govuk-link--no-visited-state"

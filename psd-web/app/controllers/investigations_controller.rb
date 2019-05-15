@@ -3,7 +3,7 @@ class InvestigationsController < ApplicationController
   include LoadHelper
 
   before_action :set_search_params, only: %i[index]
-  before_action :set_investigation, only: %i[status visibility edit_summary edit_report_source created]
+  before_action :set_investigation, only: %i[status visibility edit_summary edit_report_source edit_contact_details edit_non_compliant_reason edit_hazard_details edit_product_category created]
   before_action :set_investigation_with_associations, only: %i[show]
   before_action :build_breadcrumbs, only: %i[show]
 
@@ -82,6 +82,22 @@ class InvestigationsController < ApplicationController
     update
   end
 
+  def edit_contact_details
+    update
+  end
+
+  def edit_non_compliant_reason
+    update
+  end
+
+  def edit_product_category
+    update
+  end
+
+  def edit_hazard_details
+    update
+  end
+
 
   def created; end
 
@@ -91,8 +107,8 @@ private
     return if request.get?
 
     respond_to do |format|
-      if @investigation.update(update_params)
-        format.html {
+      if @investigation.update(update_params) && @investigation.complainant.update(update_complainant_params)
+      format.html {
           redirect_to @investigation, flash: {
             success: "#{@investigation.case_type.titleize} was successfully updated."
           }
@@ -127,7 +143,13 @@ private
   end
 
   def editable_keys
-    %i[description is_closed status_rationale is_private visibility_rationale]
+    %i[description is_closed status_rationale is_private visibility_rationale complainant_reference non_compliant_reason hazard_type product_category]
+  end
+
+  def update_complainant_params
+    return {} if params[:complainant].blank?
+
+    params.require(:complainant).permit(:name, :email, :phone_number, :other_details)
   end
 
   def preload_activities
