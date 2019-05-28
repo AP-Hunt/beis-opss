@@ -22,7 +22,6 @@
         - @responsible_person.pending_responsible_person_users.each do |user|
           tr.govuk-table__row
             td.govuk-table__cell
-              | -
             td.govuk-table__cell
               = user.email_address
             td.govuk-table__cell
@@ -34,4 +33,4 @@
             td.govuk-table__cell
               = user.email_address
             td.govuk-table__cell
-              | -
+              | Active
