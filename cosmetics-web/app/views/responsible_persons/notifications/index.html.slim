@@ -46,10 +46,13 @@
     = link_to "Add cosmetic products", new_responsible_person_add_notification_path(@responsible_person),
             class: "govuk-button", role: "button"
 
-= render "components/govuk_tabs",
-        items: [{ id: "errors", label: "Errors (#{@erroneous_notification_files.total_entries})",
-                        panel: { html: render("responsible_persons/notifications/tabs/errors") } },
-                { id: "incomplete", label: "Incomplete (#{@unfinished_notifications.total_entries})",
-                        panel: { html: render("responsible_persons/notifications/tabs/incomplete") } },
-                { id: "notified", label: "Notified (#{@registered_notifications.total_entries})",
-                        panel: { html: render("responsible_persons/notifications/tabs/notified") } }]
+- unless @erroneous_notification_files.total_entries.zero? \
+      && @unfinished_notifications.total_entries.zero? \
+      && @registered_notifications.total_entries.zero?
+  = render "components/govuk_tabs",
+          items: [{ id: "errors", label: "Errors (#{@erroneous_notification_files.total_entries})",
+                          panel: { html: render("responsible_persons/notifications/tabs/errors") } },
+                  { id: "incomplete", label: "Incomplete (#{@unfinished_notifications.total_entries})",
+                          panel: { html: render("responsible_persons/notifications/tabs/incomplete") } },
+                  { id: "notified", label: "Notified (#{@registered_notifications.total_entries})",
+                          panel: { html: render("responsible_persons/notifications/tabs/notified") } }]
