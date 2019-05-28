@@ -34,7 +34,7 @@ table.govuk-table.check-your-answers-table#product-table
         | Shades
       td.govuk-table__cell
         = display_shades(notification)
-    tr.govuk-table__row
+    tr.govuk-table__row#label-image
       th.govuk-table__header[scope="row"]
         | Label image
       td.govuk-table__cell
@@ -48,7 +48,8 @@ table.govuk-table.check-your-answers-table#product-table
                   li = "Processing image #{image.filename} ..."
                   br
                   = link_to "Refresh",
-                          edit_responsible_person_notification_path(@responsible_person, @notification),
+                          edit_responsible_person_notification_path(@responsible_person, @notification,
+                                  anchor: "label-image"),
                           class: "govuk-link--no-visited-state"
         - elsif allow_edits
           = link_to "Add product images",

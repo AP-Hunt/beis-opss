@@ -50,7 +50,7 @@ tr.govuk-table__row
     = get_frame_formulation_name(component.frame_formulation)
 
 - if !component.predefined?
-  tr.govuk-table__row
+  tr.govuk-table__row#formulation
     th.govuk-table__header[scope="row"]
       | Formulation
     td.govuk-table__cell
@@ -67,7 +67,7 @@ tr.govuk-table__row
           = "Processing file #{component.formulation_file.filename} ..."
           br
           = link_to "Refresh",
-                  edit_responsible_person_notification_path(@responsible_person, @notification),
+                  edit_responsible_person_notification_path(@responsible_person, @notification, anchor: "formulation"),
                   class: "govuk-link--no-visited-state"
       - elsif allow_edits
         = link_to "Add formulation document",
