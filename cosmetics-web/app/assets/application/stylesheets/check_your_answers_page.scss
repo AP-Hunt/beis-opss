@@ -13,17 +13,17 @@
   }
 
   dt {
-    word-break: break-word;
     clear: left;
     float: left;
-    width: calc(100% - 10em);
-    padding: 0 10px 0 0;
+    width: calc(100% - 7em);
+    word-break: break-word;
+    padding-right: 10px;
     margin: 0;
   }
 
   dd {
     float: left;
-    width: 10em;
+    width: 7em;
     margin: 0;
   }
 }

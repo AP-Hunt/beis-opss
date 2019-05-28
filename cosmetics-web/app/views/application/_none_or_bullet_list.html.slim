@@ -6,7 +6,7 @@
       dl
         dt
           = entities_list.first[key_name]
-        dd
+        dd.govuk-table__cell--numeric
           = entities_list.first[value_name]
   - else
     = entities_list.first
@@ -18,7 +18,7 @@
           dl
             dt
               = entity[key_name]
-            dd
+            dd.govuk-table__cell--numeric
               = entity[value_name]
       - else
         li
