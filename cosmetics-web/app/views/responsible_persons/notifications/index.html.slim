@@ -43,7 +43,7 @@
           = display_full_month_date EU_EXIT_DATE
           | .
 
-    = link_to "Add cosmetic products", new_responsible_person_notification_file_path(@responsible_person),
+    = link_to "Add cosmetic products", new_responsible_person_add_notification_path(@responsible_person),
             class: "govuk-button", role: "button"
 
 - unless @erroneous_notification_files.total_entries.zero? \
