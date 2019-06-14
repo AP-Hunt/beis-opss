@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_162940) do
+ActiveRecord::Schema.define(version: 2019_06_05_151007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
     t.string "physical_form"
     t.string "special_applicator"
     t.string "acute_poisoning_info"
+    t.string "other_special_applicator"
     t.index ["notification_id"], name: "index_components_on_notification_id"
   end
 
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "responsible_person_id"
+    t.boolean "email_verified", default: false
     t.index ["responsible_person_id"], name: "index_contact_persons_on_responsible_person_id"
   end
 
@@ -77,8 +79,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
     t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "responsible_person_id"
-    t.index ["responsible_person_id"], name: "index_email_verification_keys_on_responsible_person_id"
+    t.bigint "contact_person_id"
+    t.index ["contact_person_id"], name: "index_email_verification_keys_on_contact_person_id"
   end
 
   create_table "exact_formulas", force: :cascade do |t|
@@ -115,10 +117,10 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
 
   create_table "nano_materials", force: :cascade do |t|
     t.string "exposure_condition"
-    t.string "exposure_route"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "component_id"
+    t.string "exposure_routes", array: true
     t.index ["component_id"], name: "index_nano_materials_on_component_id"
   end
 
@@ -146,9 +148,9 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
     t.string "shades"
     t.string "industry_reference"
     t.datetime "cpnp_notification_date"
+    t.boolean "was_notified_before_eu_exit", default: false
     t.boolean "under_three_years"
     t.boolean "still_on_the_market"
-    t.boolean "was_notified_before_eu_exit", default: false
     t.boolean "components_are_mixed"
     t.decimal "ph_min_value"
     t.decimal "ph_max_value"
@@ -186,8 +188,6 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
   create_table "responsible_persons", force: :cascade do |t|
     t.string "account_type"
     t.string "name"
-    t.string "email_address"
-    t.string "phone_number"
     t.string "address_line_1"
     t.string "address_line_2"
     t.string "city"
@@ -195,7 +195,6 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
     t.string "postal_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_email_verified", default: false
   end
 
   create_table "trigger_question_elements", force: :cascade do |t|
@@ -229,7 +228,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_162940) do
   add_foreign_key "cmrs", "components"
   add_foreign_key "components", "notifications"
   add_foreign_key "contact_persons", "responsible_persons"
-  add_foreign_key "email_verification_keys", "responsible_persons"
+  add_foreign_key "email_verification_keys", "contact_persons"
   add_foreign_key "exact_formulas", "components"
   add_foreign_key "image_uploads", "notifications"
   add_foreign_key "nano_elements", "nano_materials"
