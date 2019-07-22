@@ -8,3 +8,5 @@
 
 import '../application/stylesheets/main.scss';
 import './shared';
+import 'govuk_publishing_components/dependencies';
+import 'govuk_publishing_components/all_components';
