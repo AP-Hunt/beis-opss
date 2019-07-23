@@ -17,6 +17,14 @@ gem "slim-rails"
 gem "strong_migrations"
 gem "wicked"
 gem "govuk_publishing_components"
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 2.7.2'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
 
 gem "shared-web", path: "./vendor/shared-web"
 

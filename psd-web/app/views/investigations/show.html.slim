@@ -7,7 +7,6 @@
     = render "investigation_heading", investigation: @investigation
 
 hr.govuk-section-break.govuk-section-break--m
-
 = render "components/govuk_tabs", title: "Summary",
         items: [{ id: "overview", label: "Overview",
                         panel: { html: render("investigations/tabs/overview") } },

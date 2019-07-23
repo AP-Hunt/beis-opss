@@ -1,7 +1,8 @@
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   mount Shared::Web::Engine => '/', as: 'shared_engine'
-
+# config/routes.rb
+  mount GovukPublishingComponents::Engine, at: "/component-guide"
   concern :document_attachable do
     resources :documents, controller: "documents" do
       collection do

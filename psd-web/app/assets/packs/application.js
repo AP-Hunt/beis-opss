@@ -5,8 +5,8 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+//= require 'govuk_publishing_components/dependencies'
+//= require 'govuk_publishing_components/all_components'
 
 import '../application/stylesheets/main.scss';
 import './shared';
-import 'govuk_publishing_components/dependencies';
-import 'govuk_publishing_components/all_components';
