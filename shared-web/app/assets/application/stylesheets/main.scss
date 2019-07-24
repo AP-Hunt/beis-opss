@@ -11,3 +11,5 @@ $govuk-assets-path: '~govuk-frontend/assets/';
 @import "header";
 @import "text";
 @import "cookie-banner";
+@import "components/_option-select";
+@import "components/_expander";

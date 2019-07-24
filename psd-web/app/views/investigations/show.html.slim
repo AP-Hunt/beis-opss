@@ -5,7 +5,35 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds-from-desktop
     = render "investigation_heading", investigation: @investigation
-
+= render "components/option-select", {\
+  key: "market_sector",
+  title: "Market sector",
+  options_container_id: "list_of_sectors",
+  options: [\
+    {\
+      value: "aerospace",
+      label: "Aerospace",
+      id: "aerospace"},
+      {\
+      value: "agriculture-environment-and-natural-resources",
+      label: "Agriculture, environment and natural resources",
+      id: "agriculture-environment-and-natural-resources"},
+        {\
+      value: "agriculture-environment-and-natural-resources",
+      label: "Agriculture, environment and natural resources",
+      id: "agriculture-environment-and-natural-resources"},
+    {\
+      value: "building-and-construction",
+      label: "Building and construction",
+      id: "building-and-construction"},
+    {\
+      value: "chemicals",
+      label: "Chemicals",
+      id: "chemicals"},
+    {\
+      value: "clothing-footwear-and-fashion",
+      label: "Clothing, footwear and fashion",
+      id: "clothing-footwear-and-fashion"}]}
 hr.govuk-section-break.govuk-section-break--m
 = render "components/govuk_tabs", title: "Summary",
         items: [{ id: "overview", label: "Overview",
