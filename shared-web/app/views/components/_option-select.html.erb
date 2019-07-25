@@ -50,11 +50,15 @@
           data-multiple="<%= t('components.option_select.found_multiple') %>"
           data-selected="<%= t('components.option_select.selected') %>"></span>
       <% end %>
-      <%# <%= render "/components/govuk_checkboxes", {form: form, key: :status,
-                 fieldset: { legend: { text: "Status", classes: "govuk-fieldset__legend--s" } },
-                 items: [{ key: "status_open", value: "checked", unchecked_value: "unchecked", text: "Open" },
-                 { key: "status_closed", value: "checked", unchecked_value: "unchecked", text: "Closed" }]
-      } %> %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "#{key}[]",
+        id: checkboxes_id,
+        heading: title,
+        small: true,
+        visually_hide_heading: true,
+        no_hint_text: true,
+        items: options
+      } %>
     </div>
   </div>
 </div>
